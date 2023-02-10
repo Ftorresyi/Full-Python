@@ -17,26 +17,30 @@ import re
 #'1|2(:?..)\s1|2(:?..)\sGT'   -> engloba as OMs: '1/1 GT, 1/2 GT, 2/2 GT'
 #'1(?:.{0,2})CJM'  -> engloba todas as formas de escrever 1 CJM, 1CJM, 1* CJM, etc..
 
-OMs=['1|2(:?.{0,3})1|2(:?.{0,3})GT/gi', 'PRIMEIRO DO SEGUNDO GRUPO DE TRANSPORTE', 
-    'PRIMEIRO DO PRIMEIRO GRUPO DE TRANSPORTE', 'SEGUNDO DO SEGUNDO GRUPO DE TRANSPORTE',
+OMs=[r'1|2(:?.{0,3})1|2(:?.{0,3})GT/gi', r'PRIMEIRO DO SEGUNDO GRUPO DE TRANSPORTE/gi', 
+    r'PRIMEIRO DO PRIMEIRO GRUPO DE TRANSPORTE/gi', r'SEGUNDO DO SEGUNDO GRUPO DE TRANSPORTE/gi',
 
-    '1(?:.{0,2})CJM/gi', 'PRIMEIRA CIRCUNSCRI\X{2}O JUDICI\XRIA MILITAR',
+    r'1(?:.{0,2})CJM/gi', r'PRIMEIRA CIRCUNSCRI\\X{2}O JUDICI\\XRIA MILITAR/gi',
 
-    'GAP(?:.)GL','GRUPAMENTO DE APOIO DO GALE*O', 'GAPGL',
-    'PAMA(.)GL','PARQUE DE MATERIAL AERONÁUTICO DO GALE(?:.)O',  
-    'BAGL','BASE AÉREA DO GALEAO','BAGL*ANTIGA'
-    'CMRJ','COL*GIO MILITAR DO RIO DE JANEIRO',
-    '1(?:.)CJM','PRIMEIRA CIRCUNSCRI*O JUDICI*RIA MILITAR','1CJM'
-    ' 1*GCC','PRIMEIRO GRUPO DE COMUNICA*ES E CONTROLE',
+    r'GAP(?:.{0,2})GL/gi', r'GRUPAMENTO DE APOIO DO GALE\\XO/gi',
+    r'PAMA(?:.{0,2})GL/gi', r'PARQUE DE MATERIAL AERONÁUTICO DO GALE(?:.)O/gi',  
+    r'BAGL/gi', r'BASE A\\XREA DO GALEAO', r'BAGL(?:.{0,2})ANTIGA'
+    r'CMRJ/gi',r'COL\\XGIO MILITAR DO RIO DE JANEIRO/gi',
+    r'1(?:.{0,2})CJM/gi', r'PRIMEIRA CIRCUNSCRI\\X{2}O JUDICI\\XRIA MILITAR/gi',
+    r'1(?:.{0,2})GCC/gi', r'PRIMEIRO GRUPO DE COMUNICA\\X{2}ES E CONTROLE/gi',
    ]
 
 #Testando as busca das Palavras: 
 
 texto= 'GAP GL PAMA-GL PAMAGL pamagl pama gl 1 /2 GT, 2/2 GT'
-
+space = r'\\s'
+pal=[]
 for i in range(len(OMs)):
     if re.findall(OMs[i], texto.upper()):
         print('Foi encontrada a palavra: ', OMs[i])
-    else: print('Não foi encontrada a palavra: ')
-
+    else: print('Não foi encontrada a palavra: ', i)
+    """ while (texto[i] != space):
+        pal=texto[i]
+    print(pal) """
+        
 
